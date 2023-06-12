@@ -1,6 +1,6 @@
-import { v4 as uuidv4 } from "uuid";
-let users = [];
+import login from "./users.js";
 
+let users = login;
 export const findAllUsers = () => users;
 
 export const findUserById = (uid) => {
@@ -16,14 +16,15 @@ export const findUserByUsername = (username) => {
 };
 
 export const findUserByCredentials = (username, password) => {
-  const user = users.find(
+  const index = users.findIndex(
     (u) => u.username === username && u.password === password
   );
-  return user || null;
+  if (index !== -1) return users[index];
+  return null;
 };
 
 export const createUser = (user) => {
-  const newUser = { ...user, _id: uuidv4(), firstName: "", lastName: "" };
+  const newUser = { ...user, _id: new Date().getTime() + "" };
   users.push(newUser);
   return newUser;
 };
@@ -31,7 +32,7 @@ export const createUser = (user) => {
 export const updateUser = (uid, user) => {
   const index = users.findIndex((u) => u._id === uid);
   users[index] = { ...users[index], ...user };
-  return { status: "ok" };
+  return users[index];
 };
 
 export const deleteUser = (uid) => {

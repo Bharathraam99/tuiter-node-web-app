@@ -1,17 +1,16 @@
 import * as usersDao from "./users-dao.js";
-import session from "express-session";
 
-const AuthController = async (app) => {
+var currentUserVar;
+const AuthController = (app) => {
   const register = async (req, res) => {
     const username = req.body.username;
     const user = await usersDao.findUserByUsername(username);
-    // user._id = new Date().getTime() + "";
     if (user) {
       res.sendStatus(409);
       return;
     }
     const newUser = await usersDao.createUser(req.body);
-    req.session["currentUser"] = newUser;
+    currentUserVar = newUser;
     res.json(newUser);
   };
 
@@ -20,34 +19,33 @@ const AuthController = async (app) => {
     const password = req.body.password;
     const user = await usersDao.findUserByCredentials(username, password);
     if (user) {
-      req.session["currentUser"] = user;
+      currentUserVar = user;
       res.json(user);
     } else {
       res.sendStatus(404);
     }
   };
-  const profile = (req, res) => {
-    const currentUser = req.session["currentUser"];
+
+  const profile = async (req, res) => {
+    const currentUser = currentUserVar;
     if (!currentUser) {
       res.sendStatus(404);
       return;
     }
     res.json(currentUser);
   };
+
   const logout = async (req, res) => {
     req.session.destroy();
     res.sendStatus(200);
   };
 
-  const update = async (req, res) => {
-    await usersDao.updateUser(req.params._id, req.body);
-    res.sendStatus(200);
-  };
+  const update = (req, res) => {};
 
   app.post("/api/users/register", register);
   app.post("/api/users/login", login);
   app.post("/api/users/profile", profile);
   app.post("/api/users/logout", logout);
-  app.put("/api/users/update/:aid", update);
+  app.put("/api/users", update);
 };
 export default AuthController;
