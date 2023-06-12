@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: "https://bharathraamwebdeva5.netlify.app/",
+    origin: "https://bharathraamwebdeva5.netlify.app",
   })
 );
 // const port = process.env.PORT || 4000;
