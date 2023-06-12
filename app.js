@@ -18,8 +18,8 @@ app.use(
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://bharathraamwebdeva5.netlify.app",
-  "https://tuiter-node-web-app.onrender.com",
+  "https://bharathraamwebdeva5v1.netlify.app",
+  "https://tuiter-node-server-app-p8qb.onrender.com",
 ];
 
 app.use(
