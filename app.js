@@ -15,35 +15,35 @@ app.use(
     store: new session.MemoryStore(),
   })
 );
-// app.use(
-//   cors({
-//     credentials: true,
-//     origin: "https://bharathraamwebdeva5.netlify.app",
-//   })
-// );
+app.use(
+  cors({
+    credentials: true,
+    origin: "https://bharathraamwebdeva5.netlify.app",
+  })
+);
 // const port = process.env.PORT || 4000;
-app.use((req, res, next) => {
-  const allowedOrigins = [
-    "http://localhost:3000",
-    "https://bharathraamwebdeva5.netlify.app",
-  ];
-  const origin = req.headers.origin;
+// app.use((req, res, next) => {
+//   const allowedOrigins = [
+//     "http://localhost:3000",
+//     "https://bharathraamwebdeva5.netlify.app",
+//   ];
+//   const origin = req.headers.origin;
 
-  if (allowedOrigins.includes(origin)) {
-    res.header("Access-Control-Allow-Origin", origin);
-  }
+//   if (allowedOrigins.includes(origin)) {
+//     res.header("Access-Control-Allow-Origin", origin);
+//   }
 
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  res.header(
-    "Access-Control-Allow-Methods",
-    "GET, PUT, POST, DELETE, PATCH, OPTIONS"
-  );
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
-});
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   res.header(
+//     "Access-Control-Allow-Methods",
+//     "GET, PUT, POST, DELETE, PATCH, OPTIONS"
+//   );
+//   res.header("Access-Control-Allow-Credentials", "true");
+//   next();
+// });
 app.use(express.json());
 
 TuitsController(app);
