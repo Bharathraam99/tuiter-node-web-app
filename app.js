@@ -21,11 +21,11 @@ app.use(
     origin: "https://bharathraamwebdeva5.netlify.app/",
   })
 );
-const port = process.env.PORT || 4000;
+// const port = process.env.PORT || 4000;
 
 TuitsController(app);
 HelloController(app);
 UserController(app);
 AuthController(app);
 app.listen(4000);
-app.listen(process.env.PORT || 4000);
+// app.listen(process.env.PORT || 4000);
