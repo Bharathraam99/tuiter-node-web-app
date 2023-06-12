@@ -1,30 +1,33 @@
 import * as usersDao from "./users-dao.js";
-var currentUserVar;
-const AuthController = (app) => {
+import session from "express-session";
+
+const AuthController = async (app) => {
   const register = async (req, res) => {
     const username = req.body.username;
     const user = await usersDao.findUserByUsername(username);
+    // user._id = new Date().getTime() + "";
     if (user) {
       res.sendStatus(409);
       return;
     }
     const newUser = await usersDao.createUser(req.body);
-    currentUserVar = newUser;
+    req.session["currentUser"] = newUser;
     res.json(newUser);
   };
+
   const login = async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     const user = await usersDao.findUserByCredentials(username, password);
     if (user) {
-      currentUserVar = user;
+      req.session["currentUser"] = user;
       res.json(user);
     } else {
       res.sendStatus(404);
     }
   };
-  const profile = async (req, res) => {
-    const currentUser = currentUserVar;
+  const profile = (req, res) => {
+    const currentUser = req.session["currentUser"];
     if (!currentUser) {
       res.sendStatus(404);
       return;
