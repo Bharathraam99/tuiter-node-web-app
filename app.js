@@ -15,7 +15,6 @@ app.use(
     store: new session.MemoryStore(),
   })
 );
-app.use(express.json());
 // app.use(
 //   cors({
 //     credentials: true,
@@ -45,10 +44,11 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Credentials", "true");
   next();
 });
+app.use(express.json());
 
 TuitsController(app);
 HelloController(app);
 UserController(app);
 AuthController(app);
-app.listen(4000);
-// app.listen(process.env.PORT || 4000);
+// app.listen(4000);
+app.listen(process.env.PORT || 4000);
