@@ -10,6 +10,7 @@ const AuthController = (app) => {
     }
     const newUser = await usersDao.createUser(req.body);
     req.session["currentUser"] = newUser;
+    currentUserVar = newUser;
     res.json(newUser);
   };
   const login = async (req, res) => {
@@ -19,6 +20,7 @@ const AuthController = (app) => {
       const user = await usersDao.findUserByCredentials(username, password);
       if (user) {
         req.session["currentUser"] = user;
+        currentUserVar = user;
         res.json(user);
         console.log("After Login");
         console.log(req.session["currentUser"]);
@@ -31,8 +33,9 @@ const AuthController = (app) => {
   };
 
   const profile = (req, res) => {
-    const currentUser = req.session["currentUser"];
+    const currentUser = currentUserVar;
     console.log("bharath");
+    console.log(currentUserVar);
     console.log(currentUser);
     console.log(req.session["currentUser"]);
     if (!currentUser) {
