@@ -28,7 +28,7 @@ const AuthController = (app) => {
     }
   };
 
-  const profile = async (req, res) => {
+  const profile = (req, res) => {
     const currentUser = req.session["currentUser"];
     console.log("bharath");
     console.log(currentUser);
