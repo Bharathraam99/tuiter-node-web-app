@@ -20,6 +20,8 @@ const AuthController = (app) => {
       if (user) {
         req.session["currentUser"] = user;
         res.json(user);
+        console.log("After Login");
+        console.log(req.session["currentUser"]);
       } else {
         res.sendStatus(403);
       }
@@ -32,6 +34,7 @@ const AuthController = (app) => {
     const currentUser = req.session["currentUser"];
     console.log("bharath");
     console.log(currentUser);
+    console.log(req.session["currentUser"]);
     if (!currentUser) {
       res.sendStatus(404);
       return;
