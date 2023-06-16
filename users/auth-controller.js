@@ -22,8 +22,6 @@ const AuthController = (app) => {
         req.session["currentUser"] = user;
         currentUserVar = user;
         res.json(user);
-        console.log("After Login");
-        console.log(req.session["currentUser"]);
       } else {
         res.sendStatus(403);
       }
@@ -34,10 +32,6 @@ const AuthController = (app) => {
 
   const profile = (req, res) => {
     const currentUser = currentUserVar;
-    console.log("bharath");
-    console.log(currentUserVar);
-    console.log(currentUser);
-    console.log(req.session["currentUser"]);
     if (!currentUser) {
       res.sendStatus(404);
       return;
