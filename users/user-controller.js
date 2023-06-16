@@ -48,7 +48,7 @@ const deleteUser = async (req, res) => {
   res.json(status);
 };
 const updateUser = async (req, res) => {
-  const id = req.params.id;
+  const id = req.params.uid;
   const status = await usersDao.updateUser(id, req.body);
   const user = await usersDao.findUserById(id);
   req.session["currentUser"] = user;
@@ -60,7 +60,7 @@ const register = async (req, res) => {
     res.sendStatus(403);
     return;
   }
-  const newUser = await userDao.createUser(req.body);
+  const newUser = await usersDao.createUser(req.body);
   req.session["currentUser"] = newUser;
   res.json(newUser);
 };
